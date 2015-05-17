@@ -1,0 +1,21 @@
+language: node_js
+before_install:
+  - npm install -g gulp mocha
+  - npm install
+  - npm test
+install:
+  - 'git config --global user.email "travis-ci@entercastle.com"'
+  - 'git config --global user.name "Travis Castle"'
+script:
+  - gulp docs
+  - cd docs
+  - git init
+  - 'git remote add origin "https://${GH_TOKEN}@github.com/castle-dev/le-job-queue-provider-firebase.git"'
+  - git checkout -B gh-pages
+  - git add .
+  - 'git commit -m "Updating documentation"'
+  - 'git push origin gh-pages -fq > /dev/null'
+env:
+  global:
+    - ENVIRONMENT=staging
+    - secure: W/Fn5Ye91YxfE4U/Gy2PFb1IctcThdru8xzrhrSclQGbs/XlTtycb39hBHCPXOe9RiVslcNofkB1NI2pu4oAagIAkQtF5VYkrIJwoLZl1luNYS8MsEM8T4s7BB6uby7tIa2eCpGd+aEDLwJdLOV6cN50wu7ktBPl7NXU8bMo//5uyFjkQ2rEQLTe89XS/lR9AgpkTwS8BnsJA/VwFkfzfCTUrNDmwBeWyxcYrZX7w4VjXaolm/VB3WhhTaQjcMtdzK8DdPPbiCvmg7IWFgHcjmlQUptnSjN7CbXtxuTPLUrZq8Pcl74+MNfpmxeyydtgLRnJ2vK447Amd2I3/iq8WcH6KDKM6qaJk1uYM7frtkFBfjPYeR1er61GajCA6wclce+mn8RUF4o9vcEzdVIhh/a7bgPa62P4o4oqHAf0WrxmiBSYCgsMiTzGDDFBTrWDxfqlkkZRjICLOxG2UIq5DmqpiWd7LU4+/ur1QokmpJlI01VJph93x/FYH9pFjB8WC/yrr0WEl9ffHBMlZHQImy/ccvsOF96gsdZD0rzTM95StPWxTvJl2k3TX3/QgpxBu0xTyCDr2VwTjL0EwzDT2WqTixY1szE2W11M/mu0SnZCP0ztbUUQBwy9Qni/QuB95LgbjipKrBQW2F60x1AIhuptjlGh7uN+sGPt5SENXu8=
