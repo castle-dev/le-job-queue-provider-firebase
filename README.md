@@ -10,7 +10,9 @@ le-job-queue-provider-firebase
 ## Usage
 
 ```
-  //TODO
+  var JobQueueProvider = require('le-job-queue-provider-firebase');
+  var firebaseUrl = /* your firebase url */
+  var provider = new JobQueueProvider(firebaseUrl);
 ```
 
 ## Tests
