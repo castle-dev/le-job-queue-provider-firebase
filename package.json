@@ -1,6 +1,6 @@
 {
   "name": "le-job-queue-provider-firebase",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Connect le-job-queue-service to Firebase",
   "main": "src/index.js",
   "scripts": {
