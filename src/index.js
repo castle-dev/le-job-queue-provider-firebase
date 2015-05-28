@@ -1,14 +1,13 @@
-var Firebase = require('firebase');
 var Worker = require('firebase-queue');
 /**
  * A bridge between le-job-queue-service and Firebase
  * @class JobQueueProvider
- * @param {string} url the firebase url
+ * @param {string} ref the firebase root reference
  * @returns {provider}
  */
-var JobQueueProvider = function (url) {
-  if (!url) { throw new Error('Firebase url required'); }
-  var _ref = new Firebase(url);
+var JobQueueProvider = function (ref) {
+  if (!ref) { throw new Error('Firebase reference required'); }
+  var _ref = ref;
   /**
    * Creates a worker to process jobs
    * @function createWorker
