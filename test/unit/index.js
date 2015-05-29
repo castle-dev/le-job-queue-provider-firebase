@@ -7,7 +7,7 @@ chai.use(sinonChai);
 chai.use(chaiAsPromised);
 
 var JobQueueProvider = require('../../src/index.js');
-var firebaseUrl = 'https://test.firebaseio.com/';
+var mockRef = {};
 
 describe('unit tests::', function () {
   var provider;
@@ -15,14 +15,14 @@ describe('unit tests::', function () {
     expect(true).to.be.true;
     expect(true).not.to.be.false;
   });
-  xit('should be constructable', function () {
+  it('should be constructable', function () {
     expect(function () {
-      provider = new JobQueueProvider(firebaseUrl);
+      provider = new JobQueueProvider(mockRef);
     }).not.to.throw();
-  }); // skipping this spec because the firebase connection prevents the gulp task from completing
-  it('should require a firebase url', function () {
+  });
+  it('should require a firebase ref', function () {
     expect(function () {
       provider = new JobQueueProvider();
-    }).to.throw('Firebase url required');
+    }).to.throw('Firebase reference required');
   });
 });
