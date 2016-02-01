@@ -18,7 +18,7 @@ var JobQueueProvider = function (ref) {
    */
   this.createWorker = function (processJob) {
     if (!processJob) { throw new Error('Process job function required'); }
-    var options = { numWorkers: 1 };
+    var options = { numWorkers: 1, specId: 'noTimeout' };
     var worker = new Worker(_ref.child('_queue'), options, function (data, progress, resolve, reject) {
       processJob(data, function () {
         _ref.child('queue').child('completedTasks').push(data, function (err) {
