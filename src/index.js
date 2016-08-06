@@ -26,7 +26,7 @@ var JobQueueProvider = function (ref, type) {
     var queueLocation;
     if(type === 'fast') {
       queueLocation = 'fastQueue';
-    } else if {
+    } else if (type === 'session'){
       queueLocation = 'sessionQueue';
     } else {
       queueLocation = 'queue'
