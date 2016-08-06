@@ -3,12 +3,12 @@ var Worker = require('firebase-queue');
  * A bridge between le-job-queue-service and Firebase
  * @class JobQueueProvider
  * @param {string} ref the firebase root reference
- * @param {string} type the type of queue you want to create, supported types are 'default' and 'fast', leaving the field undefined is the same as 'default'
+ * @param {string} type the type of queue you want to create, supported types are 'default', 'session', and 'fast', leaving the field undefined is the same as 'default'
  * @returns {provider}
  */
 var JobQueueProvider = function (ref, type) {
   if (!ref) { throw new Error('Firebase reference required'); }
-  if (type !== 'fast' && type !== 'default' && type !== undefined) {
+  if (type !== 'session' && type !== 'fast' && type !== 'default' && type !== undefined) {
     throw new Error('Invalid value for the type param, value: ' + type);
   }
   var _ref = ref;
@@ -26,6 +26,8 @@ var JobQueueProvider = function (ref, type) {
     var queueLocation;
     if(type === 'fast') {
       queueLocation = 'fastQueue';
+    } else if (type === 'session'){
+      queueLocation = 'sessionQueue';
     } else {
       queueLocation = 'queue'
     }
