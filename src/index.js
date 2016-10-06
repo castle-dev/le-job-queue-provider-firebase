@@ -12,6 +12,7 @@ var JobQueueProvider = function (ref, type) {
     throw new Error('Invalid value for the type param, value: ' + type);
   }
   var _ref = ref;
+  var worker;
   /**
    * Creates a worker to process jobs
    * @function createWorker
@@ -22,6 +23,7 @@ var JobQueueProvider = function (ref, type) {
    */
   this.createWorker = function (processJob) {
     if (!processJob) { throw new Error('Process job function required'); }
+    if (worker) { throw new Error('Worker was already created'); }
     var options = { numWorkers: 1, specId: 'noTimeout' };
     var queueLocation;
     if(type === 'fast') {
@@ -31,7 +33,7 @@ var JobQueueProvider = function (ref, type) {
     } else {
       queueLocation = 'queue'
     }
-    var worker = new Worker(_ref.child('_' + queueLocation), options, function (data, progress, resolve, reject) {
+    worker = new Worker(_ref.child('_' + queueLocation), options, function (data, progress, resolve, reject) {
       processJob(data, function () {
         _ref.child(queueLocation).child('completedTasks').push(data, function (err) {
           if (err) { throw err; }
@@ -39,6 +41,17 @@ var JobQueueProvider = function (ref, type) {
         });
       });
     });
+  }
+  /**
+   * Prevents the worker from picking up new jobs and resolves once current jobs are complete
+   * @function shutdown
+   * @memberof JobQueueProvider
+   * @instance
+   * @returns {promise}
+   */
+  this.shutdown = function () {
+    if (!worker) { throw new Error('Cannot shutdown before creating a worker'); }
+    return worker.shutdown();
   }
 }
 
